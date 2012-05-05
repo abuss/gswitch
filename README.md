@@ -1,4 +1,4 @@
 gswitch
 =======
 
-Library to provide an extended C++ switch/case statement
+General Switch is a library to provide an extended C++ switch/case statement
