@@ -1,5 +1,5 @@
-CC = g++-4.6
-CFLAGS += -std=c++0x -I..
+CC = g++-4.8
+CFLAGS += -std=c++11 -I..
 
 test: test.cc
 	${CC} ${CFLAGS} -w test.cc -o test 
