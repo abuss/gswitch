@@ -22,7 +22,7 @@ bool eval_guard(const Guard& g, const T& x)
 template <template<typename,typename> class C, typename T, typename A>
 bool eval_guard(const std::initializer_list<T>& guard, const C<T,A>& x)
 {
-  return     (std::equal(x.begin(),x.end(),guard.begin()));    
+  return (x.size()==guard.size()) && (std::equal(x.begin(),x.end(),guard.begin()));
 }
 
 template <typename T>
