@@ -99,22 +99,23 @@ void switch_(T const& x)
 
 
 template <typename T, typename Guard, typename Body, typename... Cases>
-void switch_(const T& x, const Guard& guard, const Body& body, const Cases&... cases)
+void switch_(const T& x, Guard&& guard, Body&& body, Cases&&... cases)
 {
-  if (guard(x))
+  if (std::forward<Guard>(guard)(x))
     body();
   else
-    switch_(x,cases...);
+    switch_(x,std::forward<Cases>(cases)...);
 }
 
 
 template <typename T, typename Guard0, typename Guard1, typename... Cases>
-void switch_(const T& x, const guard::case_fn<Guard0>& guard0, const guard::case_fn<Guard1>& guard1, const Cases&... cases)
+void switch_(const T& x, guard::case_fn<Guard0>&& guard0, guard::case_fn<Guard1>&& guard1, Cases&&... cases)
 {
-  if (guard0(x))
-    switch_(x,case_(x),cases...);
+  if (std::forward<guard::case_fn<Guard0>>(guard0)(x))
+    switch_(x,case_(x),std::forward<Cases>(cases)...);
   else
-    switch_(x,guard1,cases...);
+    switch_(x,std::forward<guard::case_fn<Guard1>>(guard1),
+            std::forward<Cases>(cases)...);
 }
 
 } // gswitch namespace
